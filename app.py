@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+from pathlib import Path
+
+APP_DIR = Path(__file__).parent
 
 # Page Configuration
 st.set_page_config(page_title="Ethiopia Housing Dashboard", layout="centered")
@@ -11,8 +14,8 @@ st.write("Adjust the property specifications to see predictions from a live trai
 # Securely Load Real Trained Notebook Models
 @st.cache_resource # This prevents Streamlit from slowing down by reloading the files on every click
 def load_ml_assets():
-    model = joblib.load('property_model.pkl')
-    scaler = joblib.load('property_scaler.pkl')
+    model = joblib.load(APP_DIR / 'property_model.pkl')
+    scaler = joblib.load(APP_DIR / 'property_scaler.pkl')
     return model, scaler
 
 try:
